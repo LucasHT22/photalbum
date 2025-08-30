@@ -1,5 +1,8 @@
 ---
+export const prerender = false;
 
+const title = "Photalbum - you on the album cover!"
+const description = "Create your own album cover with your photos and share it with the world!"
 ---
 
 <html lang="en">
@@ -8,9 +11,87 @@
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
+		<meta name="description" content={description} />
+		<title>{title}</title>
+		<style>
+			
+		</style>
 	</head>
 	<body>
+		<div class="container">
+			<div class="header">
+				<h1>Photalbum</h1>
+				<p>{description}</p>
+			</div>
+			<div class="stats">
+
+			</div>
+			<div class="main-grid">
+				<div class="glass-panel">
+					<h2 class="section-title">Your photo!</h2>
+					<div id="uploadArea" class="upload-area">
+						<div id="uploadContent">
+							<div class="upload-icon">UP</div>
+							<p class="upload-text">Click or drop your photo here!</p>
+							<input type="file" id="photoInput" accept="image/*">
+							<button class="btn btn-primary" onclick="document.getElementById('photoInput').click()">
+								Choose a photo
+							</button>
+						</div>
+						<div id="photoPreview" class="photo-preview">
+							<img id="uploadedPhoto">
+							<button class="btn btn-danger" onclick="removePhoto()">
+								Remove photo
+							</button>
+						</div>
+					</div>
+					<h2 class="section-title">Search Music</h2>
+					<div id="genre-filters">
+						<button class="btn btn-genre" onclick="searchByGenre('pop')">Pop</button>
+						<button class="btn btn-genre" onclick="searchByGenre('rock')">Rock</button>
+						<button class="btn btn-genre" onclick="searchByGenre('hip hop')">Hip Hop</button>
+						<button class="btn btn-genre" onclick="searchByGenre('electronic')">Electronic</button>
+						<button class="btn btn-genre" onclick="searchByGenre('jazz')">Jazz</button>
+						<button class="btn btn-genre" onclick="searchByGenre('classical')">Classical</button>
+						<button class="btn btn-genre" onclick="searchByGenre('reggae')">Reggae</button>
+						<button class="btn btn-genre" onclick="searchByGenre('country')">Country</button>
+						<button class="btn btn-genre" onclick="searchByGenre('funk')">Funk</button>
+						<button class="btn btn-genre" onclick="searchByGenre('samba')">Samba</button>
+						<button class="btn btn-genre" onclick="loadPopularTracks()">Top Hits</button>
+					</div>
+				</div>
+				<div class="search-container">
+					<input type="text" id="searchInput" class="search-input" placeholder="Search for album, music or artist...">
+					<button class="btn btn-search" onclick="searchMusic()">
+						Search
+					</button>
+				</div>
+				<div id="searchResults" class="search-results">
+					<div class="loading-text">
+						<span>Type something to search on Spotify</span>
+					</div>
+				</div>
+			</div>
+			<div class="glass-panel">
+				<h2 class="section-title">Preview & Result</h2>
+				<div class="selected-track-info">
+					<img id="selectedAlbumCover" class="selected-album-cover">
+					<div>
+						<h3 id="selectedTrackName" class="selected-track-name"></h3>
+						<p id="selectedArtistName" class="selected-artist-name"></p>
+						<a href="#" target="_blank" id="spotifyLink">
+							Listen on Spotify
+						</a>
+					</div>
+				</div>
+			</div>
+			<button id="generateBtn" class="btn btn-blue" onclick="generateImage()">
+				Generate your album cover
+			</button>
+			<div id="resultContainer" class="result-container">
+				<h3 class="result-title">Here it is!</h3>
+			</div>
+		</div>
 		<h1>Astro</h1>
 	</body>
 </html>
